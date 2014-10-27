@@ -105,6 +105,13 @@ class Format
         node.setAttribute(@config.attribute, value)
       if _.isString(@config.class)
         dom(node).addClass(@config.class + value)
+      if _.isString(@config?.wrapper?.tag)
+        wrapperTag = document.createElement @config.wrapper.tag
+        for k, v of @config.wrapper.attributes
+          wrapperTag.setAttribute k, v
+        dom(node).wrap wrapperTag
+        node = wrapperTag
+
     return node
 
   isType: (type) ->
